@@ -68,7 +68,7 @@ class ShoppingCart:
         for item in self.cart_items:
             item.print_item_cost()
             total+= item.item_cost()
-        print("\nTotal: ${}".format(total))
+        print("\nTotal: ${}".format(round(total, 2)))
 
 
     def print_descriptions(self):
@@ -85,16 +85,43 @@ def print_menu():
         "i - Output items' descriptions\n"
         "o - Output shopping cart\n"
         "q - Quit\n"
-        "Choose an option:\n"
+        "Choose an option:"
     )
     print(menu_string)
-    
-NUMBER_OF_ITEMS_TO_FETCH = 2
-items_list = []
-item_count = 0
-for count in range(NUMBER_OF_ITEMS_TO_FETCH):
-    item = ItemToPurchase()
 
+
+shopping_cart = ShoppingCart()
+
+
+def check_if_shopping_cart_present():
+    if shopping_cart.customer_name == "none":
+            print("Create Shopping Cart First")
+            create_shopping_cart()
+
+def create_shopping_cart():
+    while True:
+        customer_name = input('Enter Customer Name:\n')
+        if not customer_name.strip():
+            print("Cannot have blank or empty Customer Name. Please try again!")
+        elif customer_name.strip() == "none":
+            print("Cannot have none as Customer Name. Please try again!")
+        else:
+            shopping_cart.customer_name = customer_name
+            break
+
+    while True:
+        current_date = input('Enter Current Date:\n')
+        if not current_date.strip():
+            print("Cannot have blank or empty Current Date. Please try again!")
+        else:
+            shopping_cart.current_date = current_date
+            break
+
+def add_item_to_cart():
+    if shopping_cart.customer_name == "none":
+        print("Create shopping Cart First")
+        create_shopping_cart()
+    item = ItemToPurchase()
     while True:
         item_name = input('Enter the item name:\n')
         if not item_name.strip():
@@ -117,40 +144,51 @@ for count in range(NUMBER_OF_ITEMS_TO_FETCH):
         except Exception as err:
             print("Invalid Item Quantity. Please try again!")
 
-    items_list.append(item)
+    while True:
+        try:
+            item.item_description = input('Enter the item description:\n')
+            break
+        except Exception as err:
+            print("Invalid Item Descruotion. Please try again!")        
 
-print("\nTOTAL COST\n")
-total = 0
-for item in items_list:
-    item.print_item_cost()
-    total+= item.item_cost()
+    shopping_cart.add_item(item)
 
-print("\nTotal: ${}".format(total))
+def remove_item_from_cart():
+    item_to_be_removed = input('Enter the item name to be removed:\n')
+    shopping_cart.remove_item(item_to_be_removed.strip())
+    
+def modify_item_quantity():
+    item_name_to_be_modified = input('Enter the item name to be modified:\n')
+    while True:
+        try:
+            new_item_quantity = int(input('Enter the new item quantity:\n'))
+            break
+        except Exception as err:
+            print("Invalid Item Quantity. Please try again!")
+    shopping_cart.modify_item(ItemToPurchase(item_name=item_name_to_be_modified, item_quantity=new_item_quantity))     
+    
+def output_shopping_cart():
+    print("\nOUTPUT SHOPPING CART")
+    shopping_cart.total()
 
-my_shopping_cart = ShoppingCart("test", "")
-
-my_shopping_cart.add_item(items_list[0])
-print(my_shopping_cart.cart_items[0].item_name)
-#my_shopping_cart.remove_item(items_list[0].item_name)
-
-print(my_shopping_cart.cart_items[0].item_name)
-my_shopping_cart.total()
-my_shopping_cart.print_descriptions()
+def output_items_description():
+    print("OUTPUT ITEMS' DESCRIPTIONS")
+    shopping_cart.print_descriptions()
 
 while True:
     print_menu()
     menu_selected = input()
     match menu_selected.lower():
         case 'a':
-            print(menu_selected)
+            add_item_to_cart()
         case 'r':
-            print(menu_selected)
+            remove_item_from_cart()
         case 'c':
-            print(menu_selected)
+            modify_item_quantity()
         case 'i':
-            print(menu_selected)
+            output_items_description()
         case 'o':
-            print(menu_selected)
+            output_shopping_cart()
         case 'q':
             break
             
