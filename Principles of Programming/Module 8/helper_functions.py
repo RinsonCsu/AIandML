@@ -1,5 +1,6 @@
 from shopping_cart import ShoppingCart
 from item_to_purchase import ItemToPurchase
+from utils import *
 
 def print_menu():
     print()
@@ -15,17 +16,6 @@ def print_menu():
     for menu_item in menu_string:
         aligned_print(menu_item)
     
-
-def aligned_input(text: str):
-    return input(f"{text:^100}")
-
-def aligned_print_withline(text: str):
-    print()
-    aligned_print(text)
-
-def aligned_print(text: str):
-    print(f"{text:^100}")
-
 def create_shopping_cart() -> ShoppingCart:
     shopping_cart = ShoppingCart()
     while True:
@@ -97,14 +87,14 @@ def add_item_to_cart(shopping_cart: ShoppingCart):
 
 def remove_item_from_cart(shopping_cart: ShoppingCart):
     if shopping_cart.get_num_items_in_cart() == 0:
-        aligned_print("\nShopping cart is empty! Nothing to remove")
+        aligned_print("Shopping cart is empty! Nothing to remove")
     else:
         item_to_be_removed = aligned_input('Enter the item name to be removed:\n')
         shopping_cart.remove_item(item_to_be_removed.strip())
     
 def modify_item_quantity(shopping_cart: ShoppingCart):
     if shopping_cart.get_num_items_in_cart() == 0:
-        aligned_print("\nShopping cart is empty! Nothing to modify")
+        aligned_print("Shopping cart is empty! Nothing to modify")
         return
     item_name_to_be_modified = aligned_input('Enter the item name to be modified:\n')
     while True:
@@ -120,9 +110,9 @@ def modify_item_quantity(shopping_cart: ShoppingCart):
     shopping_cart.modify_item(ItemToPurchase(item_name=item_name_to_be_modified, item_quantity=new_item_quantity))     
     
 def output_shopping_cart(shopping_cart: ShoppingCart):
-    aligned_print("\nSHOPPING CART")
+    aligned_print("SHOPPING CART")
     shopping_cart.total()
 
 def output_items_description(shopping_cart: ShoppingCart):
-    aligned_print("\nITEMS' DESCRIPTIONS")
+    aligned_print("ITEMS' DESCRIPTIONS")
     shopping_cart.print_descriptions()

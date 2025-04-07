@@ -1,4 +1,4 @@
-from helper_functions import *
+from utils import *
 from item_to_purchase import ItemToPurchase
 
 class ShoppingCart:
@@ -46,13 +46,12 @@ class ShoppingCart:
         if self.get_num_items_in_cart() == 0:
             aligned_print("\nSHOPPING CART IS EMPTY")
             return
-        
-        print("Number of Items:", self.get_num_items_in_cart())
+        aligned_print(f"Number of Items: {self.get_num_items_in_cart()}")
         total = 0
         for item in self.cart_items:
             item.print_item_cost()
             total+= item.item_cost()
-        aligned_print("\nTotal: ${}".format(round(total, 2)))
+        aligned_print("Total: ${}".format(round(total, 2)))
 
 
     def print_descriptions(self):

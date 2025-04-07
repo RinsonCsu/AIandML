@@ -1,4 +1,5 @@
 from helper_functions import *
+from utils import *
 from shopping_cart import ShoppingCart
 from item_to_purchase import ItemToPurchase
 
