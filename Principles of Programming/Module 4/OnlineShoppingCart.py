@@ -14,7 +14,7 @@ class ItemToPurchase:
 NUMBER_OF_ITEMS_TO_FETCH = 2
 items_list = []
 item_count = 0
-while item_count < NUMBER_OF_ITEMS_TO_FETCH:
+for count in range(NUMBER_OF_ITEMS_TO_FETCH):
     item = ItemToPurchase()
 
     while True:
@@ -40,7 +40,6 @@ while item_count < NUMBER_OF_ITEMS_TO_FETCH:
             print("Invalid Item Quantity. Please try again!")
 
     items_list.append(item)
-    item_count += 1
 
 print("\nTOTAL COST\n")
 total = 0
