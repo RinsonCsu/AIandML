@@ -16,7 +16,7 @@ class ShoppingCart:
                 self.cart_items.remove(item)
                 aligned_print("Item Removed!")
                 return
-        aligned_print("Item not found in cart. Nothing removed.")
+        aligned_print_withline("Item not found in cart. Nothing removed.")
 
     def modify_item(self, modified_item: ItemToPurchase):
         if modified_item.item_name != "none":
@@ -26,7 +26,7 @@ class ShoppingCart:
                         item.item_quantity = modified_item.item_quantity
                         aligned_print("Item Quantity Modifed!")
                     return
-            aligned_print("Item not found in cart. Nothing modified.")
+            aligned_print_withline("Item not found in cart. Nothing modified.")
 
     def get_num_items_in_cart(self):
         num_items = 0
@@ -44,26 +44,26 @@ class ShoppingCart:
         self.__print_heading()
 
         if self.get_num_items_in_cart() == 0:
-            aligned_print("\nSHOPPING CART IS EMPTY")
+            aligned_print_withline("SHOPPING CART IS EMPTY")
             return
         aligned_print(f"Number of Items: {self.get_num_items_in_cart()}")
         total = 0
         for item in self.cart_items:
             item.print_item_cost()
             total+= item.item_cost()
-        aligned_print("Total: ${}".format(round(total, 2)))
+        aligned_print_withline("Total: ${}".format(round(total, 2)))
 
 
     def print_descriptions(self):
         self.__print_heading()
         
         if self.get_num_items_in_cart() == 0:
-            aligned_print("\nSHOPPING CART IS EMPTY")
+            aligned_print_withline("SHOPPING CART IS EMPTY")
             return
         
-        aligned_print("Item Descriptions")
+        aligned_print_withline("Item Descriptions")
         [item.print_item_description() for item in self.cart_items]
 
     def __print_heading(self):
         heading = f"{self.customer_name}'s Shopping Cart - {self.current_date}"
-        aligned_print(heading)
+        aligned_print_withline(heading)

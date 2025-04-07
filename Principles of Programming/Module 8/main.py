@@ -20,6 +20,7 @@ def main():
             case 'o':
                 output_shopping_cart(shopping_cart)
             case 'q':
+                aligned_print_withline("Bye!!")
                 break
             case _:
                 aligned_print_withline("Invalid menu option selected! Please try again")
